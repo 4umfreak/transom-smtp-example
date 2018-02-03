@@ -1,0 +1,28 @@
+{
+  "name": "transom-smtp-example",
+  "version": "1.0.0",
+  "description": "Sample app with TransomJS SMTP module.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4umfreak/transom-smtp-example.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node-dev index.js"
+  },
+  "keywords": [
+    "TransomJS",
+    "SMTP",
+    "RESTAPI"
+  ],
+  "author": "Mark Voorberg <4umfreak@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@transomjs/transom-core": "^1.0.4",
+    "@transomjs/transom-smtp": "^1.0.4"
+  },
+  "devDependencies": {
+    "node-dev": "^3.1.3"
+  }
+}
