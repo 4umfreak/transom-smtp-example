@@ -11,16 +11,36 @@ const transom = new Transom();
 const myApi = require('./myApi');
 console.log("Running " + myApi.name);
 
-// Set your SMTP server URI in your environment or run against localhost.
-let smtpServerUri = process.env.SMTP_SERVER || 'smtp://localhost';
+let smtp;
 
-console.log(`Using SMTP server at: ${smtpServerUri}`);
+// We're passing the 'smtp' option directly into nodemailer's
+// createTransport() check out the TL;DR below:
+// https://nodemailer.com/about/#tl-dr
+smtp = {
+    host: process.env.SMTP_SERVER || 'smtp://localhost',
+    port: 587,
+    secure: true, // true for 465, false for other ports
+    auth: {
+        user: process.env.SMTP_USERNAME || 'email@address.com',
+        pass: process.env.SMTP_PASSWORD || 'my-secret-password'
+    },
+    tls: {
+        rejectUnauthorized: false
+    }        
+};
+// Alternatively, something like this should work. (Requires editing!)
+// smtp = 'smtps://<email%40domain.com>:<password>@<mail.domain.com>';
+
+// Or simply pull a connection string from an environment variable.
+if (process.env.SMTP_CONNECT) {
+    smtp = process.env.SMTP_CONNECT;
+}
 
 // Register my TransomJS SMTP module.
 transom.configure(transomSmtp, {
-    smtp: smtpServerUri,
+    smtp,
     helpers: {
-        majordomo: '"Major Domo" noreply@yourdomain.com'
+        majordomo: `"Major Domo" ${process.env.SMTP_USERNAME}`
     }
 });
 
