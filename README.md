@@ -28,25 +28,44 @@ If everything is working it should fire an email to the address configured
 in the `/` route and display a JSON response that looks something like the following:
 ```javascript
 {
-    "accepted": [
-            "foobar@hogmail.com"
-        ],
-    "rejected": [],
-    "envelopeTime": 79,
-    "messageTime": 40,
-    "messageSize": 585,
-    "response": "250 OK id=000000-00065p-Pe",
-    "envelope": {
-        "from": "email@domain.com",
-        "to": [
-                "foobar@hogmail.com"
-            ]
-    },
-    "messageId": "<67d13484-6412-58df-ccae-ed713e153303@domain.com>"
+  "accepted": ["foobar@hogmail.com"],
+  "rejected": [],
+  "envelopeTime": 79,
+  "messageTime": 40,
+  "messageSize": 585,
+  "response": "250 OK id=000000-00065p-Pe",
+  "envelope": {
+    "from": "email@domain.com",
+    "to": ["foobar@hogmail.com"]
+  },
+  "messageId": "<67d13484-6412-58df-ccae-ed713e153303@domain.com>"
 }
 ```
 ### The Route
 Looking at this example, it's obviously never going to production anywhere, but it does demonstrate a couple important things.
+```javascript
+  server.get('/', function (req, res, next) {
+    // Create the outbound email data (this is passed directly to Nodemailer)
+    let mailOptions = {
+        to: 'foobar@hogmail.com', // list of recipients
+        subject: 'Hello ✔', // Subject line
+        text: 'Hello world?', // plain text body
+        html: '<b>Hello world?</b>' // html body
+    };
+    // Fetch the configured SMTP module from the Registry.
+    console.log("Registry keys:", server.registry.keys);
+    const smtp = server.registry.get('transomSmtp');
+    // Send email using the 'majordomo' helper method.
+    smtp.sendFromMajordomo(mailOptions, function (err, result) {
+      if (err) {
+        return res.send(500, {
+          "Error": err.message
+        });
+      }
+      res.send(result);
+    });
+  });
+```
 
 1. It uses `server.registry.get('transomSmtp');` to get a reference to the configured plugin. 
 2. You can use `server.registry.keys` to get a list of all the top-level objects stored within your registry.  
