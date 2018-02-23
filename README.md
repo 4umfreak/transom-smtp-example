@@ -2,7 +2,7 @@
 ### Sending email with Transom SMTP
 
 In this example we create a TransomJS server and use the [transom-smtp](https://github.com/transomjs/transom-smtp/) plugin to send emails from an endpoint to show how simple it is. 
-This example demonstrates how to configure the plugin and then use it from within your own code on the server. The plugin provides a simple wrapper around nodemailer so that your email configuration is centralized and outbount messaging is implemented consistently throughout your application.
+This example demonstrates how to configure the plugin and then use it from within your own code on the server. The plugin provides a simple wrapper around nodemailer so that your email configuration is centralized and outbound messaging is implemented consistently throughout your application.
 
 ### Run the example
 Clone the `transom-smtp-example` repository and install the dependencies with npm. 
@@ -78,3 +78,6 @@ If at some point in the future, you choose to use a different mail provider, the
 
 ### Limitations
 The Transom SMTP plugin creates a new Transport for each individual email that is sent. If your application requires sending high volumes of email, there are better ways to do it and reusing the transport would be a good place to start, but for transactional emails where the volumnes are low, this works great.
+
+### See Also
+If you need to send HTML formatted email messages, E.g. with a company header and footer, you should take a look at the [Transom EJS template](https://transomjs.github.io/docs/transom-ejs-template/) plugin. It provides a nice clean way to merge JSON data with static email templates making it super easy to send well formatted email messages from anywhere in your application.
