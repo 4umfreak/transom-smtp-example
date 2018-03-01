@@ -8,7 +8,7 @@ This example demonstrates how to configure the plugin and then use it from withi
 Clone the `transom-smtp-example` repository and install the dependencies with npm. 
 ```bash
 $ git clone git@github.com:4umfreak/transom-smtp-example.git
-$ cd transom-functions-secured-example
+$ cd transom-smtp-example
 $ npm install
 ```
 
@@ -77,7 +77,7 @@ Everywhere you write code within your Transom application, you will have access 
 If at some point in the future, you choose to use a different mail provider, there's very little change to be made in your app, you simply replace the plugin with one that has similar methods, and the remainder of your application can remain unchanged.
 
 ### Limitations
-The Transom SMTP plugin creates a new Transport for each individual email that is sent. If your application requires sending high volumes of email, there are better ways to do it and reusing the transport would be a good place to start, but for transactional emails where the volumnes are low, this works great.
+The Transom SMTP plugin creates a new Transport for each individual email that is sent. If your application requires sending high volumes of email, there are better ways to do it and reusing the transport would be a good place to start, but for transactional emails where the volumes are low, this works great.
 
 ### See Also
 If you need to send HTML formatted email messages, E.g. with a company header and footer, you should take a look at the [Transom EJS template](https://transomjs.github.io/docs/transom-ejs-template/) plugin. It provides a nice clean way to merge JSON data with static email templates making it super easy to send well formatted email messages from anywhere in your application.
